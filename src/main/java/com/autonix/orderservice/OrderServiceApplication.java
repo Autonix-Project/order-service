@@ -1,4 +1,4 @@
-package com.autonix.order_service;
+package com.autonix.orderservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
