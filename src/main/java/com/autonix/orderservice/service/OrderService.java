@@ -30,7 +30,7 @@ public class OrderService {
                 .color(request.getColor())
                 .deadline(request.getDeadline())
                 .destination(request.getDestination())
-                .status(OrderStatus.CREATED)
+                .status(OrderStatus.READY)
                 .build();
 
         Order savedOrder = orderRepository.save(order);

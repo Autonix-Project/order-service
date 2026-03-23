@@ -73,6 +73,22 @@ public class Order {
         this.orderCode = orderCode;
     }
 
+    public void update(CarType carType,
+                       Integer quantity,
+                       ColorType color,
+                       LocalDate deadline,
+                       DestinationType destination) {
+        this.carType = carType;
+        this.quantity = quantity;
+        this.color = color;
+        this.deadline = deadline;
+        this.destination = destination;
+    }
+
+    public void startProduction() {
+        this.status = OrderStatus.IN_PROGRESS;
+    }
+
     @PrePersist
     public void onCreate() {
         this.createdAt = LocalDateTime.now();
