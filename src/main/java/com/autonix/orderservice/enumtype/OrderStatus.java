@@ -1,8 +1,8 @@
 package com.autonix.orderservice.enumtype;
 
 public enum OrderStatus {
-    CREATED,
-    IN_PRODUCTION,
+    READY,
+    IN_PROGRESS,
     COMPLETED,
-    CANCELLED
+    
 }

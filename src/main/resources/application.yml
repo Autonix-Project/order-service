@@ -1,23 +1,21 @@
 server:
-  port: 8083
+  port: 8082
 
 spring:
   application:
     name: order-service
 
   datasource:
-    url: jdbc:mysql://localhost:3306/autonix_order
-    username: root
-    password: 1234
+    url: jdbc:mysql://localhost:3307/order_db?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:7987}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-
-  jackson:
-    time-zone: Asia/Seoul
