@@ -17,7 +17,7 @@ public class Order {
     @Column(name = "order_id")
     private Long orderId;
 
-    @Column(name = "member_id", nullable = false)
+    @Column(name = "member_id")
     private Long memberId;
 
     @Column(name = "order_number", nullable = false, unique = true)

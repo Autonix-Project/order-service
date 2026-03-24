@@ -4,5 +4,7 @@ public enum ColorType {
     WHITE,
     BLACK,
     SILVER,
-    BLUE
+    BLUE,
+    RED,
+    GRAY
 }
