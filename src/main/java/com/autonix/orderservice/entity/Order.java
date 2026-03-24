@@ -1,16 +1,9 @@
 package com.autonix.orderservice.entity;
 
-import com.autonix.orderservice.enumtype.CarType;
-import com.autonix.orderservice.enumtype.ColorType;
-import com.autonix.orderservice.enumtype.DestinationType;
 import com.autonix.orderservice.enumtype.OrderStatus;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,68 +14,69 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "order_id")
+    private Long orderId;
 
-    @Column(name = "order_code", unique = true)
-    private String orderCode;
+    @Column(name = "member_id", nullable = false)
+    private Long memberId;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private CarType carType;
+    @Column(name = "order_number", nullable = false, unique = true)
+    private String orderNumber;
 
-    @Column(nullable = false)
-    private Integer quantity;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private ColorType color;
-
-    @Column(nullable = false)
-    private LocalDate deadline;
+    @Column(name = "destination", nullable = false)
+    private String destination;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private DestinationType destination;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "status", nullable = false)
     private OrderStatus status;
 
-    @Column(nullable = false, updatable = false)
+    @Column(name = "deadline")
+    private LocalDateTime deadline;
+
+    @Column(name = "car_color")
+    private String carColor;
+
+    @Column(name = "car_model")
+    private String carModel;
+
+    @Column(name = "total_quantity", nullable = false)
+    private Integer totalQuantity;
+
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
     @Builder
-    public Order(CarType carType,
-                 Integer quantity,
-                 ColorType color,
-                 LocalDate deadline,
-                 DestinationType destination,
-                 OrderStatus status) {
-        this.carType = carType;
-        this.quantity = quantity;
-        this.color = color;
-        this.deadline = deadline;
+    public Order(Long memberId,
+                 String orderNumber,
+                 String destination,
+                 OrderStatus status,
+                 LocalDateTime deadline,
+                 String carColor,
+                 String carModel,
+                 Integer totalQuantity) {
+        this.memberId = memberId;
+        this.orderNumber = orderNumber;
         this.destination = destination;
         this.status = status;
-    }
-
-    public void assignOrderCode(String orderCode) {
-        this.orderCode = orderCode;
-    }
-
-    public void update(CarType carType,
-                       Integer quantity,
-                       ColorType color,
-                       LocalDate deadline,
-                       DestinationType destination) {
-        this.carType = carType;
-        this.quantity = quantity;
-        this.color = color;
         this.deadline = deadline;
+        this.carColor = carColor;
+        this.carModel = carModel;
+        this.totalQuantity = totalQuantity;
+    }
+
+    public void update(String destination,
+                       LocalDateTime deadline,
+                       String carColor,
+                       String carModel,
+                       Integer totalQuantity) {
         this.destination = destination;
+        this.deadline = deadline;
+        this.carColor = carColor;
+        this.carModel = carModel;
+        this.totalQuantity = totalQuantity;
     }
 
     public void startProduction() {
@@ -93,6 +87,7 @@ public class Order {
     public void onCreate() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
+        this.status = OrderStatus.READY;
     }
 
     @PreUpdate
