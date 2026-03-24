@@ -3,22 +3,18 @@ package com.autonix.orderservice.dto.request;
 import com.autonix.orderservice.enumtype.CarType;
 import com.autonix.orderservice.enumtype.ColorType;
 import com.autonix.orderservice.enumtype.DestinationType;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
 public class CreateOrderRequest {
 
-    private Long memberId;
-    private String destination;
-    private LocalDateTime deadline;
-    private String carColor;
-    private String carModel;
+    private CarType carType;
+    private ColorType color;
+    private DestinationType destination;
     private Integer totalQuantity;
+    private LocalDateTime deadline;
 }

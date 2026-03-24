@@ -29,11 +29,10 @@ public class OrderService {
         validateCreateRequest(request);
 
         Order order = Order.builder()
-                .memberId(request.getMemberId())
-                .destination(request.getDestination())
+                .destination(request.getDestination().name())
                 .deadline(request.getDeadline())
-                .carColor(request.getCarColor())
-                .carModel(request.getCarModel())
+                .carColor(request.getColor().name())
+                .carModel(request.getCarType().name())
                 .totalQuantity(request.getTotalQuantity())
                 .orderNumber(generateOrderNumber())
                 .status(OrderStatus.READY)
@@ -94,17 +93,14 @@ public class OrderService {
     }
 
     private void validateCreateRequest(CreateOrderRequest request) {
-        if (request.getMemberId() == null) {
-            throw new IllegalArgumentException("memberId는 필수입니다.");
+        if (request.getCarType() == null) {
+            throw new IllegalArgumentException("carType은 필수입니다.");
         }
-        if (request.getDestination() == null || request.getDestination().isBlank()) {
+        if (request.getColor() == null) {
+            throw new IllegalArgumentException("color는 필수입니다.");
+        }
+        if (request.getDestination() == null) {
             throw new IllegalArgumentException("destination은 필수입니다.");
-        }
-        if (request.getCarColor() == null || request.getCarColor().isBlank()) {
-            throw new IllegalArgumentException("carColor는 필수입니다.");
-        }
-        if (request.getCarModel() == null || request.getCarModel().isBlank()) {
-            throw new IllegalArgumentException("carModel은 필수입니다.");
         }
         if (request.getTotalQuantity() == null || request.getTotalQuantity() < 1) {
             throw new IllegalArgumentException("totalQuantity는 1 이상이어야 합니다.");
